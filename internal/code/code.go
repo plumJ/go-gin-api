@@ -75,6 +75,10 @@ const (
 	CronListError    = 20403
 	CronDetailError  = 20404
 	CronExecuteError = 20405
+
+	OrderCreateError = 20501
+	OrderDetailError = 20502
+	OrderCancelError = 20503
 )
 
 func Text(code int) string {

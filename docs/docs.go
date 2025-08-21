@@ -1954,6 +1954,141 @@ var doc = `{
                 }
             }
         },
+        "/api/order/cancel": {
+            "patch": {
+                "description": "取消订单",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "API.order"
+                ],
+                "summary": "取消订单",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "user",
+                        "name": "user",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/order.cancelResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/code.Failure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order/create": {
+            "post": {
+                "description": "创建订单",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "API.order"
+                ],
+                "summary": "创建订单",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "订单序列号",
+                        "name": "OrderNo",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "订单金额",
+                        "name": "OrderFee",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "创建者",
+                        "name": "CreatedUser",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/order.createResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/code.Failure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/order/{id}": {
+            "get": {
+                "description": "订单详情",
+                "consumes": [
+                    "application/x-www-form-urlencoded"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "API.order"
+                ],
+                "summary": "订单详情",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/order.detailResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/code.Failure"
+                        }
+                    }
+                }
+            }
+        },
         "/api/tool/cache/clear": {
             "patch": {
                 "security": [
@@ -3226,6 +3361,56 @@ var doc = `{
                 "id": {
                     "description": "主键ID",
                     "type": "integer"
+                }
+            }
+        },
+        "order.cancelResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "order.createResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "主键ID",
+                    "type": "integer"
+                }
+            }
+        },
+        "order.detailResponse": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "created_user": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "is_deleted": {
+                    "type": "integer"
+                },
+                "order_fee": {
+                    "type": "integer"
+                },
+                "order_no": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "integer"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "updated_user": {
+                    "type": "string"
                 }
             }
         },

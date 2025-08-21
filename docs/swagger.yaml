@@ -577,6 +577,39 @@ definitions:
         description: 主键ID
         type: integer
     type: object
+  order.cancelResponse:
+    properties:
+      id:
+        description: 主键ID
+        type: integer
+    type: object
+  order.createResponse:
+    properties:
+      id:
+        description: 主键ID
+        type: integer
+    type: object
+  order.detailResponse:
+    properties:
+      created_at:
+        type: string
+      created_user:
+        type: string
+      id:
+        type: integer
+      is_deleted:
+        type: integer
+      order_fee:
+        type: integer
+      order_no:
+        type: string
+      status:
+        type: integer
+      updated_at:
+        type: string
+      updated_user:
+        type: string
+    type: object
   tool.dbData:
     properties:
       db_name:
@@ -1914,6 +1947,96 @@ paths:
       summary: 删除功能权限
       tags:
       - API.menu
+  /api/order/{id}:
+    get:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 订单详情
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/order.detailResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/code.Failure'
+      summary: 订单详情
+      tags:
+      - API.order
+  /api/order/cancel:
+    patch:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 取消订单
+      parameters:
+      - description: id
+        in: formData
+        name: id
+        required: true
+        type: integer
+      - description: user
+        in: formData
+        name: user
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/order.cancelResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/code.Failure'
+      summary: 取消订单
+      tags:
+      - API.order
+  /api/order/create:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: 创建订单
+      parameters:
+      - description: 订单序列号
+        in: formData
+        name: OrderNo
+        required: true
+        type: string
+      - description: 订单金额
+        in: formData
+        name: OrderFee
+        required: true
+        type: integer
+      - description: 创建者
+        in: formData
+        name: CreatedUser
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/order.createResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/code.Failure'
+      summary: 创建订单
+      tags:
+      - API.order
   /api/tool/cache/clear:
     patch:
       consumes:

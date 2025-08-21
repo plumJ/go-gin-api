@@ -7,11 +7,13 @@ import (
 	"github.com/xinliangnote/go-gin-api/internal/api/cron"
 	"github.com/xinliangnote/go-gin-api/internal/api/helper"
 	"github.com/xinliangnote/go-gin-api/internal/api/menu"
+	"github.com/xinliangnote/go-gin-api/internal/api/order"
 	"github.com/xinliangnote/go-gin-api/internal/api/tool"
 	"github.com/xinliangnote/go-gin-api/internal/pkg/core"
 )
 
 func setApiRouter(r *resource) {
+
 	// helper
 	helperHandler := helper.New(r.logger, r.db, r.cache)
 
@@ -99,5 +101,13 @@ func setApiRouter(r *resource) {
 		api.PATCH("/cron/used", cronHandler.UpdateUsed())
 		api.PATCH("/cron/exec/:id", core.AliasForRecordMetrics("/api/cron/exec"), cronHandler.Execute())
 
+		// orderAPI
+		orderAPI := r.mux.Group("/api/order", r.interceptors.CheckSignature())
+		{
+			orderHandler := order.New(r.logger, r.db, r.cache)
+			orderAPI.POST("/create", orderHandler.Create())
+			orderAPI.PATCH("/cancel", orderHandler.Cancel())
+			orderAPI.GET("/:id", orderHandler.Detail())
+		}
 	}
 }

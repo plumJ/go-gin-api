@@ -60,4 +60,8 @@ var enUSText = map[int]string{
 	CronListError:    "Failed to get cron list",
 	CronDetailError:  "Failed to get cron detail",
 	CronExecuteError: "Failed to execute cron",
+
+	OrderCreateError: "Failed to create order",
+	OrderDetailError: "Failed to get order details",
+	OrderCancelError: "Failed to cancel order",
 }
